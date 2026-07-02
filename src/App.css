@@ -1,0 +1,88 @@
+:root {
+  color-scheme: dark;
+  --color-primary: #14b8a6;
+  --color-primary-soft: rgba(20, 184, 166, 0.12);
+  --color-primary-glow: rgba(20, 184, 166, 0.24);
+  --color-primary-strong: #0f8280;
+  --color-surface: #0f172a;
+  --color-surface-strong: #111827;
+  --color-surface-soft: rgba(15, 23, 42, 0.85);
+  --color-card: rgba(15, 23, 42, 0.92);
+  --color-border: rgba(20, 184, 166, 0.18);
+  --color-text: #f8fafc;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.5;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top, var(--color-primary-glow), transparent 25%),
+    #08101a;
+  color: var(--color-text);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  width: 100%;
+  min-height: 100vh;
+  padding: 1rem 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-container {
+  width: min(100%, calc(100vw - 2rem));
+  max-width: none;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.96),
+    rgba(15, 23, 42, 0.92)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
+  max-height: calc(100vh - 2rem);
+  overflow: visible;
+  min-height: 0;
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    padding: 0.9rem 0.65rem;
+  }
+
+  .app-container {
+    padding: 0.95rem;
+    border-radius: 1.5rem;
+  }
+}

@@ -1,15 +1,14 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getBackGroudColor, getColor } from "../utilFunctions/utils.js";
+import "./square.css";
 
 function Square({
   id,
   val,
   isVisible,
-  handlLeftClick,
+  handleLeftClick,
   handleRightClick,
   isFlag,
-  size,
   row,
   column,
   isCurrentClickCellId,
@@ -20,8 +19,8 @@ function Square({
       val,
       isVisible,
       isFlag,
-      isCurrentClickCellId
-    )
+      isCurrentClickCellId,
+    ),
   );
 
   useEffect(() => {
@@ -31,10 +30,10 @@ function Square({
         val,
         isVisible,
         isFlag,
-        isCurrentClickCellId
-      )
+        isCurrentClickCellId,
+      ),
     );
-  }, [isVisible, isFlag]);
+  }, [isVisible, isFlag, isCurrentClickCellId, row, column, val]);
 
   const bomb = "0x1F4A3";
 
@@ -45,23 +44,20 @@ function Square({
     return <span style={{ color: color, fontWeight: 700 }}>{val}</span>;
   };
 
-  const renderFlag = () => {
-    const flag = "🚩";
-    return flag;
-  };
+  const renderFlag = () => "🚩";
 
-  const handleContextMenuClick = (e, id) => {
+  const handleContextMenuClick = (e) => {
     e.preventDefault();
     handleRightClick(id);
   };
 
-  const handleClick = (e, id) => {
-    handlLeftClick(id);
+  const handleClick = () => {
+    handleLeftClick(id);
   };
 
   const handleMouseEnter = () => {
     if (isVisible) return;
-    setBackGroudColor("#a5e537");
+    setBackGroudColor("rgba(20, 184, 166, 0.08)");
   };
 
   const handleMouseOut = () => {
@@ -72,30 +68,32 @@ function Square({
         val,
         isVisible,
         isFlag,
-        isCurrentClickCellId
-      )
+        isCurrentClickCellId,
+      ),
     );
   };
 
+  const classNames = [
+    "square",
+    isVisible ? "square--visible" : "",
+    isCurrentClickCellId ? "square--active" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <td
-      key={id}
-      style={{
-        height: `${size}px`,
-        width: `${size}px`,
-        backgroundColor: backgroundColor,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        border: "0.5px solid black",
-      }}
-      onClick={(e) => handleClick(e, id)}
-      onContextMenu={(e) => handleContextMenuClick(e, id)}
+    <button
+      type="button"
+      className={classNames}
+      style={{ backgroundColor }}
+      onClick={handleClick}
+      onContextMenu={handleContextMenuClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseOut}
+      aria-label={`Cell ${id}`}
     >
       {isVisible ? renderValue() : isFlag ? renderFlag() : ""}
-    </td>
+    </button>
   );
 }
 

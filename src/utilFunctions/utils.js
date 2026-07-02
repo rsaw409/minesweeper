@@ -71,16 +71,16 @@ export function getBackGroudColor(
   val,
   isVisible,
   isFlag,
-  isCurrentClickCellId
+  isCurrentClickCellId,
 ) {
   if (isVisible) {
-    if (val === -1 && isFlag) return "green";
+    if (val === -1 && isFlag) return "#14b8a6";
     if (val === -1 && isCurrentClickCellId) return "#F23506";
     else if (row & 1) return column % 2 === 0 ? "#D7B899" : "#E4C29E";
     else return column % 2 !== 0 ? "#D7B899" : "#E4C29E";
   } else {
-    if (row & 1) return column % 2 === 0 ? "#A6D948" : "#8DCB3A";
-    else return column % 2 !== 0 ? "#A6D948" : "#8DCB3A";
+    if (row & 1) return column % 2 === 0 ? "#dff6ef" : "#ccefe1";
+    else return column % 2 !== 0 ? "#dff6ef" : "#ccefe1";
   }
 }
 

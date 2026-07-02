@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext } from "react";
+import React, { useState, useContext } from "react";
 import IconButton from "@mui/material/IconButton";
 import ShareIcon from "@mui/icons-material/Share";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -7,14 +7,12 @@ import FlagIcon from "@mui/icons-material/Flag";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import Snackbar from "@mui/material/Snackbar";
-import { getCellSize, getNoOfColumns } from "../utilFunctions/utils";
 import { restartGameFn } from "../utilFunctions/action.js";
-
 import { StateContext } from "../App";
+import "./header.css";
 
 function Header() {
   const [state, dispatch] = useContext(StateContext);
-
   const [snackBar, setSnackBar] = useState(false);
 
   const handleClose = (event, reason) => {
@@ -38,88 +36,46 @@ function Header() {
     }
   };
 
-  const width = useMemo(
-    () => (getCellSize(state.level) + 1 + 2) * getNoOfColumns(state.level) + 4,
-    [state.level]
-  );
-
-  const height = window.innerWidth < 720 ? "42px" : "56px";
-
-  const action = (
-    <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
-
   return (
     <>
-      <div
-        style={{
-          width: `${width}px`,
-          height: height,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          background: "#59870a",
-          fontWeight: "500",
-          fontSize: "1.25em",
-        }}
-      >
-        <IconButton
-          color="inherit"
+      <div className="header-bar">
+        <button
+          type="button"
+          className="header-bar__button"
           onClick={() => restartGameFn(dispatch)}
-          sx={{ color: "white" }}
         >
-          <div style={{ fontSize: 16 }}> {state.level}</div>
+          <span>{state.level}</span>
           <ArrowDropDownIcon />
-        </IconButton>
+        </button>
 
-        <div
-          style={{
-            display: "flex",
-            color: "white",
-          }}
-        >
-          <FlagIcon style={{ color: "#D80005", padding: "8px" }} />
-          <span style={{ fontSize: 22, padding: "8px" }}>
-            {state.noOfFlags}
-          </span>
+        <div className="header-bar__flag">
+          <FlagIcon style={{ color: "#f87171" }} />
+          <span>{state.noOfFlags}</span>
         </div>
 
-        <div style={{ flexGrow: 2 }}></div>
+        <div className="header-bar__action-group">
+          <IconButton
+            size="large"
+            aria-label="Volume Button"
+            sx={{ color: "white" }}
+            onClick={() =>
+              dispatch({
+                type: "toggleSound",
+              })
+            }
+          >
+            {state.isSoundEnabled ? <VolumeUpIcon /> : <VolumeOffIcon />}
+          </IconButton>
 
-        <IconButton
-          size="large"
-          aria-label="Volume Button"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          sx={{ color: "white" }}
-          onClick={() =>
-            dispatch({
-              type: "toggleSound",
-            })
-          }
-        >
-          {state.isSoundEnabled ? <VolumeUpIcon /> : <VolumeOffIcon />}
-        </IconButton>
-
-        <IconButton
-          size="large"
-          aria-label="Share Application Link"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={shareUrl}
-          sx={{ color: "white" }}
-        >
-          <ShareIcon />
-        </IconButton>
+          <IconButton
+            size="large"
+            aria-label="Share Application Link"
+            onClick={shareUrl}
+            sx={{ color: "white" }}
+          >
+            <ShareIcon />
+          </IconButton>
+        </div>
       </div>
 
       <Snackbar
@@ -127,7 +83,18 @@ function Header() {
         autoHideDuration={3000}
         message="Share Not Supported... Link copied in clipboard!"
         onClose={handleClose}
-        action={action}
+        action={
+          <React.Fragment>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
       />
     </>
   );
