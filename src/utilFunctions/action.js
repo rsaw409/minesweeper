@@ -1,7 +1,7 @@
 import { getNoOfRows, getNoOfColumns, getNoOfSquare } from "./utils.js";
 
 import { showAllMines } from "../utilFunctions/getBoard.js";
-import { startGame, getAlert as getAlertBox } from "../components/modal.js";
+import { startGame, getAlert as getAlertBox } from "../components/modal.jsx";
 
 export const restartGameFn = (dispatch) => {
   startGame().then((result) => {
@@ -14,7 +14,7 @@ export const placeFlagFunction = (
   state,
   dispatch,
   playPlaceFlagSound,
-  playGameWinSound
+  playGameWinSound,
 ) => {
   if (state.isGameOver) {
     getAlertBox(state.isGameWon, () => restartGameFn(dispatch));
@@ -83,7 +83,7 @@ export const handleClick = (
   dispatch,
   playRightMoveSound,
   playGameOverSound,
-  playGameWinSound
+  playGameWinSound,
 ) => {
   if (state.isGameOver) {
     getAlertBox(state.isGameWon, () => restartGameFn(dispatch));

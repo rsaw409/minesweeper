@@ -24,7 +24,7 @@ function Board() {
   const columns = useMemo(() => getNoOfColumns(state.level), [state.level]);
   const rows = state.board.length;
 
-  const calculateBoardLayout = React.useCallback(
+  const calculateBoardLayout = useCallback(
     (viewportWidth, viewportHeight, headerHeight = 0) => {
       const isPortrait = viewportHeight >= viewportWidth;
       const horizontalMargin = isPortrait ? 28 : 44;

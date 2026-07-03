@@ -58,7 +58,7 @@ export default function reducer(state, action) {
       };
     case "reloadState":
       return {
-        isSoundEnabled: action.payload.isSoundEnabled,
+        isSoundEnabled: state.isSoundEnabled ?? true,
         level: action.payload.level,
         noOfFlags: getNoOfFlag(action.payload.level),
         noOfBombs: getNoOfBomb(action.payload.level),

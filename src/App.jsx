@@ -14,9 +14,9 @@ const App = () => {
   useEffect(() => {
     dispatch({
       type: "reloadState",
-      payload: { isSoundEnabled: state.isSoundEnabled, level: state.level },
+      payload: { level: state.level },
     });
-  }, [isMobile, state.isSoundEnabled, state.level]);
+  }, [isMobile, state.level]);
 
   return (
     <StateContext.Provider value={[state, dispatch, isMobile]}>
